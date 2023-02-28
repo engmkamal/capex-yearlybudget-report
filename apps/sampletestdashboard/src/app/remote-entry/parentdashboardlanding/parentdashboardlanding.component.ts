@@ -797,6 +797,37 @@ export class ParentdashboardlandingComponent implements OnInit, AfterViewInit {
           return vwLnkFld;
         }
 
+        function setViewLinkUrlGuidField(el:any) { 
+    
+          const vwLnkFld = {
+            headerName: el.headerName,
+            field: el.field,
+            cellRenderer: function (params:any) {
+              return '<a href="' + i.siteUrl + params.value + '&mode=read" target="_blank">view</a>';
+              //return '<a href="https://portal.bergerbd.com/leaveauto/SitePages/' + this.dashboardsListsInfo[i.listIndex].WfName + '.aspx?UniqueId=' + params.value + '&mode=read" target="_blank">View</a>'
+            },
+            enableRowGroup: false,
+            menuTabs: ['columnsMenuTab'],
+            editable: false,
+            cellClass: "ag-header-group-cell-label",
+            cellStyle: function (params:any) {
+              if (params.value != '') {
+                return {
+                  textAlign: 'center',
+                  display: 'flex',
+                };
+              } else {
+                return {
+                  textAlign: 'center',
+                }
+              }
+            },
+            minWidth: 85,
+          }
+    
+          return vwLnkFld;
+        }
+
         function setActionViewLinkGuidField(el:any) {
     
           const vwLnkFld = {
@@ -1170,6 +1201,7 @@ export class ParentdashboardlandingComponent implements OnInit, AfterViewInit {
             "SelectField": setSelectField(element),
             "ActionViewLinkGuidField": setActionViewLinkGuidField(element),
             "ViewLinkGuidField": setViewLinkGuidField(element),
+            "ViewLinkUrlGuidField": setViewLinkUrlGuidField(element),
             "ViewLinkIdField": setViewLinkIdField(element)
           };          
     
@@ -1886,7 +1918,7 @@ export class ParentdashboardlandingComponent implements OnInit, AfterViewInit {
     //   ] 
 
     // //////-------------testing ends ---------------
-    const dbListsInfoUrl = "https://portal.bergerbd.com/Style Library/SampleTestDashboard/V2/assets/dashboardslistsinfo.ts";
+    const dbListsInfoUrl = "https://portal.bergerbd.com/Style Library/SampleTestDashboard/V3/assets/dashboardslistsinfo.ts";
     //const dbListsInfoUrl = "http://localhost:4207/assets/dashboardslistsinfo.ts";
     this.httpClient.get(dbListsInfoUrl).subscribe(data =>{
       this.dashboardsListsInfo = data;

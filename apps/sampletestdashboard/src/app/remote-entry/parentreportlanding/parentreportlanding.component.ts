@@ -802,6 +802,37 @@ export class ParentreportlandingComponent implements OnInit, AfterViewInit {
           return vwLnkFld;
         }
 
+        function setViewLinkUrlGuidField(el:any) { 
+    
+          const vwLnkFld = {
+            headerName: el.headerName,
+            field: el.field,
+            cellRenderer: function (params:any) {
+              return '<a href="' + i.siteUrl + params.value + '&mode=read" target="_blank">view</a>';
+              //return '<a href="https://portal.bergerbd.com/leaveauto/SitePages/' + this.dashboardsListsInfo[i.listIndex].WfName + '.aspx?UniqueId=' + params.value + '&mode=read" target="_blank">View</a>'
+            },
+            enableRowGroup: false,
+            menuTabs: ['columnsMenuTab'],
+            editable: false,
+            cellClass: "ag-header-group-cell-label",
+            cellStyle: function (params:any) {
+              if (params.value != '') {
+                return {
+                  textAlign: 'center',
+                  display: 'flex',
+                };
+              } else {
+                return {
+                  textAlign: 'center',
+                }
+              }
+            },
+            minWidth: 85,
+          }
+    
+          return vwLnkFld;
+        }
+
         function setActionViewLinkGuidField(el:any) {
 
           const vwLnkFld = {
@@ -1172,6 +1203,7 @@ export class ParentreportlandingComponent implements OnInit, AfterViewInit {
             "SelectField": setSelectField(element),
             "ActionViewLinkGuidField": setActionViewLinkGuidField(element),
             "ViewLinkGuidField": setViewLinkGuidField(element),
+            "ViewLinkUrlGuidField": setViewLinkUrlGuidField(element),
             "ViewLinkIdField": setViewLinkIdField(element)
           };
 
@@ -1529,9 +1561,9 @@ export class ParentreportlandingComponent implements OnInit, AfterViewInit {
               allMDData = [];
 
               for(let i = 0; i<detTblDta.length; i++){
-                const tests = JSON.parse(detTblDta[i].RnDLabTest);
+                const tests = JSON.parse(detTblDta[i].CapexBudgetProposal);
 
-                for(let j=0; j<tests.TestParameters[0].Samples.length; j++){
+                for(let j=0; j<tests.Datagridcrudhomeitems.length; j++){
                   const obj = {
                     Author: {
                       Title: detTblDta[i].Author.Title,
@@ -1544,10 +1576,15 @@ export class ParentreportlandingComponent implements OnInit, AfterViewInit {
                     Modified: detTblDta[i].Modified,
                     Status: detTblDta[i].Status,
                     Title: detTblDta[i].Title,
-                    TotalSamples: tests.TestParameters[0].Samples.length,
-                    TPName: tests.TestParameters[0].Title.Title,
-                    TPMethod: tests.TestParameters[0].Title.Method,
-                    Samples: tests.TestParameters[0].Samples[j]
+                    BudgetItem: tests.Datagridcrudhomeitems[j]
+                    // ClassCode: tests[j].Datagridcrudhomeitems[j].ClassCode,
+                    // ClassDescription: tests[j].Datagridcrudhomeitems[j].ClassDescription,
+                    // BusinessArea: tests[j].Datagridcrudhomeitems.BusinessArea,
+                    // AreaDescription: tests[j].Datagridcrudhomeitems.AreaDescription
+                    // CostCenter: tests.Datagridcrudhomeitems.CostCenter,
+                    // ClassDescription: tests.Datagridcrudhomeitems.ClassDescription,
+                    // BusinessArea: tests.Datagridcrudhomeitems.BusinessArea,
+                    // AreaDescription: tests.Datagridcrudhomeitems.AreaDescription
 
                   }
 
@@ -1940,7 +1977,7 @@ export class ParentreportlandingComponent implements OnInit, AfterViewInit {
     this.getScreenWidth = window.innerWidth;
     this.getScreenHeight = window.innerHeight - 130;
 
-    const dbListsInfoUrl = "https://portal.bergerbd.com/Style Library/SampleTestDashboard/V2/assets/dashboardslistsinfo.ts";
+    const dbListsInfoUrl = "https://portal.bergerbd.com/Style Library/SampleTestDashboard/V3/assets/dashboardslistsinfo.ts";
     //const dbListsInfoUrl = "http://localhost:4207/assets/dashboardslistsinfo.ts";
     this.httpClient.get(dbListsInfoUrl).subscribe(data =>{
       this.dashboardsListsInfo = data;

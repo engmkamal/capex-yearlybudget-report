@@ -26,7 +26,7 @@ export class DashboardshomeComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    const dbListsInfoUrl = "https://portal.bergerbd.com/Style Library/SampleTestDashboard/V2/assets/dashboardslistsinfo.ts";
+    const dbListsInfoUrl = "https://portal.bergerbd.com/Style Library/SampleTestDashboard/V3/assets/dashboardslistsinfo.ts";
     //const dbListsInfoUrl = "http://localhost:4207/assets/dashboardslistsinfo.ts";
     this.httpClient.get(dbListsInfoUrl).subscribe(data =>{
       this.allWf = data;

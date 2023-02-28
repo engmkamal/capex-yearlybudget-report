@@ -299,6 +299,36 @@ export class ColumnDefinition{
         return vwLnkFld;
     }
 
+    private setViewLinkUrlGuidField(el:any) { 
+
+        const vwLnkFld = {
+        headerName: el.headerName,
+        field: el.field,
+        cellRenderer: (params:any)=> {
+            return '<a href="' +  el.siteUrl + params.value + '&mode=read" target="_blank">view</a>';
+        },
+        enableRowGroup: false,
+        menuTabs: ['columnsMenuTab'],//menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+        editable: false,
+        cellClass: "ag-header-group-cell-label",
+        cellStyle: function (params:any) {
+            if (params.value != '') {
+            return {
+                textAlign: 'center',
+                display: 'flex',
+            };
+            } else {
+            return {
+                textAlign: 'center',
+            }
+            }
+        },
+        minWidth: 85,
+        }
+
+        return vwLnkFld;
+    }
+
     private setActionViewLinkGuidField = (el:any)=> {
 
         const vwLnkFld = {
@@ -645,6 +675,7 @@ export class ColumnDefinition{
             "SelectField": this.setSelectField(element),
             "ActionViewLinkGuidField": this.setActionViewLinkGuidField(element),
             "ViewLinkGuidField": this.setViewLinkGuidField(element),
+            "ViewLinkUrlGuidField": this.setViewLinkUrlGuidField(element),
             "ViewLinkIdField": this.setViewLinkIdField(element),
             
         }
